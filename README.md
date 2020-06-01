@@ -10,7 +10,11 @@ the input weak spec.
 
 # Artifact
 You can download a VM (if you are not already using it) from
-https://ams-fse.s3.us-east-2.amazonaws.com/ams.ova
+https://ams-fse.s3.us-east-2.amazonaws.com/ams.ova .
+
+The DOI for this artifact is
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3870818.svg)](https://doi.org/10.5281/zenodo.3870818)
+
 
 ```
 $ wget https://ams-fse.s3.us-east-2.amazonaws.com/ams.ova
