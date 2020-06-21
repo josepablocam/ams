@@ -70,10 +70,28 @@ Different websites provide tutorials, so we also recommend looking at those if y
 
 
 # AMS from Source
+## System Requirements and Notes
 AMS *should* run without issues on Ubuntu 18.04 and Mac OSX (tested on 10.11.6).
 If you have issues running, we suggest using the pre-packaged VM (or feel
 free to contribute back fixes that allow AMS to build on your platform).
 
+If you want to install from source, you will need the following basic utilities
+(installable using `apt-get/brew`):
+* `wget` (e.g. `apt-get install wget`)
+* `zip` (e.g. `apt-get install zip`)
+
+If you are not using Ubuntu or Mac OSX, you should also manually install
+`task-spooler` (https://vicerveza.homeunix.net/~viric/soft/ts/) and make sure
+we can call it using `tsp` (or set a corresponding alias). You will then want to remove the `task-spooler` install in `scripts/setup.sh`.
+
+All other software packages needed are either 1) installed by our scripts
+automatically (which should work without issues for Ubuntu and Mac OSX)
+or 2) provide a prompt for you to manually install (as in the
+case of `conda`). Indeed, the [pre-packaged VM for AMS](#ams-in-a-downloadable-virtual-machine) was configured using a clean Ubuntu image and running
+the instructions for installing from source.
+
+
+## Steps
 First, clone the `ams` repository.
 
 ```bash
@@ -84,6 +102,9 @@ $ cd ams/
 If you don't have `conda` already, please install from
 
 https://docs.conda.io/en/latest/miniconda.html
+
+(If you don't manually install, the `scripts/setup.sh` script will
+error out with a corresponding message to install `conda`.)
 
 Once you have done so, you can build the conda environment
 
