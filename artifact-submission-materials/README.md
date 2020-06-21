@@ -1,3 +1,14 @@
+# Document Overview
+The goal of this README.md is to provide detailed information
+on AMS for purposes of FSE 2020 Artifact Evaluation. In particular,
+we: provide instructions to rebuild AMS or alternatively use a pre-packaged
+VM, detail the relation of different source files/outputs to the paper,
+provide instructions on reproducing these results.
+
+Users who are interested in using/installing AMS (but not interested
+in details relating to artifact evaluation) can instead focus on
+the INSTALL.md file.
+
 # AMS
 AMS is a tool to automatically generate AutoML search spaces from
 users' weak specifications. A weak specification is defined a set

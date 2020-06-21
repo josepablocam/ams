@@ -1,4 +1,24 @@
-# Installing
+# Document Overview
+The goal of this INSTALL.md is to provide steps for downloading a prepackaged
+VM with AMS, or alternatively building AMS from source.
+
+Users who are interested in additional
+details relevant for artifact evaluation should
+also read the README.md.
+
+# Installing AMS
+We currently provide two ways to try out AMS. You can
+choose to use our pre-built (and DOI indexed) VM. We recommend this
+if you would like to get a quick glimpse of AMS or if you would like
+to reproduce the results in our FSE 2020 paper. Please see
+[AMS in a Downloadable Virtual Machine](#ams-in-a-downloadable-virtual-machine).
+
+If you would like to use AMS in your own projects, and prefer not to rely
+on the VM, you can follow the instructions for building AMS from "source".
+Please see [AMS from Source](#ams-from-source).
+
+
+# AMS in a Downloadable Virtual Machine
 We recommend using the pre-packaged VM, available at
 
 ```bash
@@ -8,14 +28,15 @@ $ wget https://ams-fse.s3.us-east-2.amazonaws.com/ams.ova
 which can be loaded into your preferred platform (we tested using
   VirtualBox 6.0).
 
-However, these instructions are included for completeness if you would
-like to 1) re-install `ams`, or 2) rebuild `ams` (i.e. train
-it on the code corpus).
+The VM comes with all necessary source files, a pre-built AMS, and outputs
+from our FSE 2020 paper.
 
-AMS *should* run without issues on Ubuntu and Mac OSX (tested on 10.11.6).
-If you have issues running, we suggest using the pre-packaged VM.
 
-### Installation
+# AMS from Source
+AMS *should* run without issues on Ubuntu 18.04 and Mac OSX (tested on 10.11.6).
+If you have issues running, we suggest using the pre-packaged VM (or feel
+free to contribute back fixes that allow AMS to build on your platform).
+
 First, clone the `ams` repository.
 
 ```bash
@@ -62,7 +83,7 @@ $ python -m core.generate_search_space --help
 You should see a help message printed to the console.
 
 
-### Building AMS
+## Building ("Training") AMS
 To use AMS, AMS first extracts rules for complementary components,
 indexes the API documents, and extracts hyperparameter/value frequency
 distributions from the code corpus. To build this, just execute
@@ -79,7 +100,7 @@ Once you are done with this, you are ready to use AMS and shouldn't need
 to tweak anything else.
 
 
-# Known Latency Issue
+## Known Latency Issue
 Loading the SciSpacy language model takes approximately 30 seconds.
 
 ```python
