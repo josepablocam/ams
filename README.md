@@ -14,8 +14,12 @@ https://ams-fse.s3.us-east-2.amazonaws.com/ams.ova .
 
 If prompted, the username is `ams` and the password is `ams`.
 
-The DOI for this artifact is
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3870818.svg)](https://doi.org/10.5281/zenodo.3870818)
+The DOI for the artifact submitted for artifact evaluation was
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3870818.svg)](https://doi.org/10.5281/zenodo.3870818).
+
+This artifact has since been superseded by a version that incorporates changes
+based on the camera ready. Please use that version of the VM (which you
+can download from zenodo or through aws as explained below.)
 
 
 ```bash
