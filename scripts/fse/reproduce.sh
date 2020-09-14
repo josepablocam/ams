@@ -5,6 +5,7 @@ source scripts/folder_setup.sh
 bash scripts/fse/reproduce_manual_experiments.sh
 bash scripts/fse/reproduce_performance_experiments.sh
 bash scripts/fse/reproduce_other_experiments.sh
+bash scripts/fse/reproduce_corpus_size.sh
 
 # produce figures/tables for paper
 bash scripts/fse/reproduce_analysis.sh

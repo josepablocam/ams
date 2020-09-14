@@ -264,7 +264,7 @@ loaded and you can skip the following step).
 
 ### Datasets
 Note that we have included all necessary datasets directly in the repository
-(and artifact), as the library that packages this dataset has implemented
+(and artifact), as the library that packages these datasets has implemented
 breaking changes with no backwards compatibility.
 
 ### Downloading Results
@@ -305,6 +305,11 @@ and used in the paper. In particular,
 * Figure 6: `hyperparams/perf.pdf`
 * Figure 7: `performance/combined_wins.pdf`
 * Figure 8: `tpot-sys-ops/combined.pdf` (includes extended examples)
+* Figure 9:
+    - (a) `corpus-size/hyperparameters.pdf`
+    - (b) `corpus-size/hyperparameter_values.pdf`
+    - (c) `corpus-size/num_mined_rules.pdf`
+    - (d) `corpus-size/jaccard_mined_rules.pdf`
 
 (Tip: To open PDFs from the terminal in the Ubuntu VM, you can use `xdg-open file.pdf`)
 
@@ -323,6 +328,18 @@ and evaluates them against our comparison baselines (weak spec, weak spec + sear
 and expert + search). Running these experiments from scratch *takes on the order
 of 1-2 days on a machine with 30 cores*. Given this computational burden, we have
 also included our results in the artifact.
+
+`bash scripts/fse/reproduce_corpus_size.sh` generates subsampled versions of
+our code corpus, and rebuilds portions of AMS that rely on code examples
+(i.e. hyperparameter mining and complementary component mining). Running
+these experiments from scratch *takes on the order of 2 hours on a machine
+with 30 cores*. Given this computational burden, we have also included our
+results in the artifact. Note that in contrast to other scripts, this
+is "creating new data" and as such the outputs are stored in `${DATA}`,
+following the naming convention `corpus-size-${corpus_size}-iter-${corpus_iter}/`
+where `${corpus-size}` is the downsampling ratio (e.g. 0.1) and
+`${corpus-iter}` is the iteration index (e.g. 1)
+as we repeat the downsampling 5 times per ratio.
 
 `bash scripts/fse/reproduce_analysis.sh` generates figures from the outputs of the prior
 3 scripts and also runs some additional (~ 1 hour execution) experiments to
@@ -359,6 +376,8 @@ We provide a short overview of the AMS codebase:
   - `generate_experiment.py`: generate experiment configurations based on some predefined components of interest
   - `simple_pipeline.py`: compile weak spec directly into a sklearn pipeline for benchmarking
   - `run_experiment.py`: driver to run different search strategies/configurations
+  - `build_corpus_size_experiment.py`: driver to run corpus size experiments, downsamples corpus and rebuilds portions of AMS that use that data
+
 
 * `analysis/`: contains code to run analysis on experiment outputs and conduct
 additional characterization of our data.
@@ -370,6 +389,7 @@ additional characterization of our data.
   - `performance_analysis.py`: compute table/plots of wins from performance experiments data
   - `pipeline_to_tree.py`: convert pipeline from API into a tree (easier to analyze) utility
   - `relevance_markings.py`: create plot of functionally related components' manual annotation results
+  - `corpus_size_analysis.py`: create plots for impact of corpus size
   - `utils.py`: misc utils
 
 
