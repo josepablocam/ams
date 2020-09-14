@@ -12,6 +12,8 @@ the input weak spec.
 You can download a VM (if you are not already using it) from
 https://ams-fse.s3.us-east-2.amazonaws.com/ams.ova .
 
+If prompted, the username is `ams` and the password is `ams`.
+
 The DOI for this artifact is
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3870818.svg)](https://doi.org/10.5281/zenodo.3870818)
 
@@ -55,6 +57,29 @@ After you have started the docker container by executing the `run` command,
 you can jump to running
 `scripts/folder_setup.sh` (please see the installation section below for more
 details).
+
+# AMS from Source
+## System Requirements and Notes
+AMS *should* run without issues on Ubuntu 18.04 and Mac OSX (tested on 10.11.6).
+If you have issues running, we suggest using the pre-packaged VM (or feel
+free to contribute back fixes that allow AMS to build on your platform).
+
+If you want to install from source, you will need the following basic utilities
+(installable using `apt-get/brew`):
+* `wget` (e.g. `apt-get install wget`)
+* `zip` (e.g. `apt-get install zip`)
+
+If you are not using Ubuntu or Mac OSX, you should also manually install
+`task-spooler` (https://vicerveza.homeunix.net/~viric/soft/ts/) and make sure
+we can call it using `tsp` (or set a corresponding alias).
+You will then want to remove the `task-spooler` install in `scripts/setup.sh`.
+
+All other software packages needed are either 1) installed by our scripts
+automatically (which should work without issues for Ubuntu and Mac OSX)
+or 2) provide a prompt for you to manually install (as in the
+case of `conda`). Indeed, the pre-packaged VM
+ was configured using a clean Ubuntu image and running
+the instructions for installing from source.
 
 # Building
 AMS *should* run without issues on Ubuntu and Mac OSX (tested on 10.11.6).
