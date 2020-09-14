@@ -300,7 +300,7 @@ $ bash scripts/fse/download_results.sh
 ```
 
 This will download results from an AWS S3 bucket and will place results in
-`$RESULTS` and `$ANALYSIS_DIR`. In particular,
+`$RESULTS`, `$ANALYSIS_DIR`, and `$DATA`. In particular,
 
 `${RESULTS}` will now contain folders of the form `q[0-9]+`, one for each of
 the 15 weak specifications in our experiments. In it, you will find the
@@ -314,6 +314,9 @@ when using genetic programming (the TPOT tool).
 
 `rule-mining/` has experimental results for the complementary component
 experiments.
+
+`${DATA}/corpus-size*` contains objects derived by AMS from a subsample
+of the corpus.
 
 #### Tables and Figures
 
