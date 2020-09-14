@@ -83,3 +83,10 @@ python analysis/frequency_operators.py \
     --specs "${RESULTS}" \
     --title "Spec: {}" \
     --combine
+
+# Figure 9(a-d)
+mkdir -p ${ANALYSIS_DIR}/corpus-size
+python analysis/corpus_size_analysis.py \
+  --full_data_folder ${DATA} \
+  --sampled_data_folder ${DATA}/corpus-size-* \
+  --output ${ANALYSIS_DIR}/corpus-size

@@ -3,6 +3,7 @@ import os
 
 import matplotlib
 matplotlib.use("Agg")
+matplotlib.rcParams['text.usetex'] = True
 import pandas as pd
 import seaborn as sns
 

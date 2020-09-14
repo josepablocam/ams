@@ -8,7 +8,6 @@ import pprint
 import pandas as pd
 
 from core import code_to_api
-from core import nlp
 
 # imports for purposes of unpickling
 from core.extract_sklearn_api import (
@@ -28,6 +27,16 @@ def remove_regression_components(api_elems):
     return [(e, score) for e, score in api_elems if not e.is_regression_op]
 
 
+def filter_api_elems(api_elems, perform_ad_hoc_filter, is_classification):
+    if perform_ad_hoc_filter:
+        api_elems = remove_components_with_empty_defaults(api_elems)
+        api_elems = remove_components_with_cv(api_elems)
+        api_elems = remove_components_loss_only(api_elems)
+    if is_classification:
+        api_elems = remove_regression_components(api_elems)
+    return api_elems
+
+
 def get_sorted_code_matches(
     matched,
     k,
@@ -36,12 +45,11 @@ def get_sorted_code_matches(
 ):
     results = {}
     for code_elem, api_elems in matched.items():
-        if perform_ad_hoc_filter:
-            api_elems = remove_components_with_empty_defaults(api_elems)
-            api_elems = remove_components_with_cv(api_elems)
-            api_elems = remove_components_loss_only(api_elems)
-        if is_classification:
-            api_elems = remove_regression_components(api_elems)
+        api_elems = filter_api_elems(
+            api_elems,
+            perform_ad_hoc_filter,
+            is_classification,
+        )
         api_elems = sorted(api_elems, key=lambda x: x[1], reverse=True)
         # no heuristic ranking for code version
         # drop scores
@@ -52,6 +60,40 @@ def get_sorted_code_matches(
     return results
 
 
+def parse_include_exclude_specification(code):
+    includes = []
+    excludes = []
+    # after removing includ/exclude spec info
+    clean_code = []
+    parts = [s.split(":") for s in code]
+    for elem in parts:
+        if len(elem) == 1:
+            # no hard/soft spec
+            clean_code.append(elem[0])
+            continue
+        comp, req_spec = elem
+        if req_spec.strip() == "1":
+            includes.append(comp)
+        elif req_spec.strip() == "0":
+            excludes.append(comp)
+        else:
+            raise ValueError("Unknown specification constraint: " + req_spec)
+        clean_code.append(comp)
+    code = clean_code
+    return code, includes, excludes
+
+
+def handle_include_exclude_specification(code_spec, config):
+    _, includes, excludes = parse_include_exclude_specification(code_spec)
+    for comp in includes:
+        if comp not in config:
+            config[comp] = {}
+    for comp in excludes:
+        if comp in config:
+            config.pop(comp)
+    return config
+
+
 def generate_components_configuration_from_code(
     api_collection,
     code,
@@ -59,6 +101,7 @@ def generate_components_configuration_from_code(
     is_classification=False,
     strategy="bm25",
 ):
+    code, _, _ = parse_include_exclude_specification(code)
     matched = code_to_api.compute_matches(api_collection, code, strategy)
     sorted_matches = get_sorted_code_matches(
         matched,
@@ -81,6 +124,7 @@ def generate_complementary_components_from_specification(
     k,
     is_classification=False,
 ):
+    code, _, _ = parse_include_exclude_specification(code)
     extended = model.extend(
         code,
         k=k,
@@ -238,8 +282,7 @@ def get_args():
     parser.add_argument(
         "--alpha",
         type=float,
-        help=
-        "Weight to combine norm PMI and normalized count of support into score",
+        help="Weight to combine NPMI and normalized ct of support into score",
         default=0.5,
     )
     parser.add_argument(
@@ -311,6 +354,9 @@ def main():
         )
         # add to the extended
         config.update(comp_config)
+
+    # remove/include any components according to spec exclude/include info
+    config = handle_include_exclude_specification(spec, config)
 
     config = remove_components_from_config_with_empty_defaults(
         config,

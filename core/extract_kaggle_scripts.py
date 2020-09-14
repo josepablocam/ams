@@ -3,6 +3,7 @@ from argparse import ArgumentParser
 import json
 import os
 import pickle
+import random
 
 import jedi
 import pandas as pd
@@ -110,8 +111,7 @@ def load_dict_scripts(file_path):
 def get_args():
     parser = ArgumentParser(
         description=
-        "Get Python scripts from meta kaggle that import relevant apis"
-    )
+        "Get Python scripts from meta kaggle that import relevant apis")
     parser.add_argument("--input", type=str, help="Path to meta kaggle files")
     parser.add_argument(
         "--output",
@@ -124,11 +124,22 @@ def get_args():
         nargs="+",
         help="Relevant APIs",
     )
+    parser.add_argument(
+        "--sample",
+        type=float,
+        help="Fraction of total scripts to sample",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        help="RNG seed (useful when sampling)",
+    )
     return parser.parse_args()
 
 
 def main():
     args = get_args()
+
     apis = tuple(args.api)
     if args.input.endswith(".pkl"):
         # assume it's a dictionary of the form {"id": XXX, "source": XXX}
@@ -136,6 +147,15 @@ def main():
     else:
         scripts = query_db_scripts(args.input)
     scripts = [s for s in tqdm.tqdm(scripts) if imports_apis(s, apis)]
+
+    if args.seed is not None:
+        random.seed(args.seed)
+
+    if args.sample is not None:
+        random.shuffle(scripts)
+        n = int(args.sample * len(scripts))
+        scripts = scripts[:n]
+
     print("# Scripts", len(scripts))
     with open(args.output, "wb") as fout:
         pickle.dump(scripts, fout)
