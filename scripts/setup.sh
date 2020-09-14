@@ -8,17 +8,26 @@ if ! command -v conda > /dev/null
   exit 1
 fi
 
-# Create base environment
-conda env create -f environment.yml
-if [[ -z ${CONDA_EXE} ]]
+function make-conda-env() {
+  conda env create -f environment.yml
+  if [[ -z ${CONDA_EXE} ]]
+  then
+      echo "Need to set CONDA_EXE environment variable"
+      exit 1
+  fi
+  # install everything into appropriate conda environment
+  conda_folder=$(realpath "$(dirname $CONDA_EXE)/..")
+  source ${conda_folder}/etc/profile.d/conda.sh || { echo "Missing conda.sh"; exit 1; }
+}
+
+conda activate ams-env
+if [[ $? -ne 0 ]]
 then
-    echo "Need to set CONDA_EXE environment variable"
-    exit 1
+    echo "Need to build conda environment ams-env"
+    make-conda-env
 fi
 
-# install everything into appropriate conda environment
-conda_folder=$(realpath "$(dirname $CONDA_EXE)/..")
-source ${conda_folder}/etc/profile.d/conda.sh || { echo "Missing conda.sh"; exit 1; }
+# Create base environment
 conda activate ams-env
 
 # SciSpacy model

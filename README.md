@@ -29,7 +29,32 @@ navigate to the `ams` folder and activate the conda environment
 ```bash
 $ cd ~/ams/
 $ conda activate ams-env
+
 ```
+
+### Docker Container
+We have also included a `Dockerfile` that installs conda and sets up the
+`ams` dependencies up for you. You may find that easier (more convenient to
+use) than your base machine. If so, you can run
+
+```bash
+docker build . -t ams-container --memory=8g
+```
+
+to build the container. Then you can start it with
+
+```bash
+docker run -it --memory=8g ams-container
+```
+
+You may want to increase the memory allotted for the docker `run` command as you see fit
+(and you may be able to decrease it for the docker `build` command). You may
+also find this post useful https://stackoverflow.com/questions/44533319/how-to-assign-more-memory-to-docker-container
+
+After you have started the docker container by executing the `run` command,
+you can jump to running
+`scripts/folder_setup.sh` (please see the installation section below for more
+details).
 
 # Building
 AMS *should* run without issues on Ubuntu and Mac OSX (tested on 10.11.6).
