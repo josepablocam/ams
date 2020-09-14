@@ -429,7 +429,6 @@ We provide a short overview of the AMS codebase:
 
 
 * `experiments/` contains all code to run experiments:
-  - `download_datasets.py`: download benchmark datasets and cache (in case working without internet later on)
   - `generate_experiment.py`: generate experiment configurations based on some predefined components of interest
   - `simple_pipeline.py`: compile weak spec directly into a sklearn pipeline for benchmarking
   - `run_experiment.py`: driver to run different search strategies/configurations
