@@ -25,9 +25,9 @@ from core.extract_sklearn_api import (
 from core.utils import get_component_constructor
 from core.extract_parameters import UNKValue
 from core.generate_search_space import generate_parameters
-from experiments import download_datasets as dd
 
 from analysis.utils import emp_cdf, plot_emp_cdf
+from datasets.utils import fetch_data
 
 
 def count_params_per_class(api_collection, exclude):
@@ -217,11 +217,7 @@ def performance_of_tuned_vs_default(
     results = []
     for c in tqdm.tqdm(clfs):
         for d in datasets:
-            X, y = pmlb.fetch_data(
-                d,
-                return_X_y=True,
-                local_cache_dir=dd.DEFAULT_LOCAL_CACHE_DIR,
-            )
+            X, y = fetch_data(d)
             default_score, best_score = evaluate_component_possible_improvement(
                 X,
                 y,

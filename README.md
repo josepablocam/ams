@@ -56,6 +56,8 @@ when using AMS).
 If you would like to modify the location where data/resources etc are
 saved down, you should edit `scripts/folder_setup.sh` accordingly.
 These paths are used/referenced throughout the remainder of the setup.
+Note that the data folder (`$DATA`) should point to `data/` directory
+in the root of the project. You can change this, but we do not recommend it.
 
 You should then install some additional supporting resources by running
 
@@ -260,17 +262,10 @@ to run on a well-provisioned machine, we provide a download of our experimental
 results. (If you are using the artifact VM, these results have already been
 loaded and you can skip the following step).
 
-### Datasets and Internet Connection
-Note that running experiments requires access to the internet, in order
-to download datasets. Alternatively, you can download all datasets first,
-and then (offline) run experiments. *If you are using the artifact VM,
-you do not need to download datasets, as they have been downloaded for you*.
-
-You can download the necessary datasets by running
-
-```bash
-$ bash scripts/fse/download_datasets.sh
-```
+### Datasets
+Note that we have included all necessary datasets directly in the repository
+(and artifact), as the library that packages this dataset has implemented
+breaking changes with no backwards compatibility.
 
 ### Downloading Results
 If you want to download the results, you can run

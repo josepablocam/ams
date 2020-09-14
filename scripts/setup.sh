@@ -45,8 +45,6 @@ wget https://archive.org/download/meta-kaggle/meta-kaggle.zip
 unzip meta-kaggle.zip -d meta-kaggle/
 popd
 
-# create cache directory for dataset downloads
-mkdir -p ${DATA}/benchmarks-datasets
 
 # install task-spooler
 # https://vicerveza.homeunix.net/~viric/soft/ts/

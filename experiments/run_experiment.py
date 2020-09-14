@@ -11,7 +11,6 @@ import sys
 import json
 import numpy as np
 import pandas as pd
-import pmlb
 import tpot
 import tqdm
 import sklearn.base
@@ -19,15 +18,13 @@ import sklearn.pipeline
 import sklearn.metrics
 from sklearn.model_selection import StratifiedKFold, cross_validate
 
-import download_datasets as dd
 import simple_pipeline
 
-import sys
-sys.path.append("../")
-sys.path.append(".")
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(os.path.join(os.path.dirname(__file__), "."))
 import core.search
 from core.search import (FailedOptim, RobustSearch)
-from core import mp_utils
+from datasets.utils import fetch_data
 
 MAX_TIME_MINS_PER_PIPELINE = 1
 
@@ -171,23 +168,6 @@ def limit_poly_features_in_config(config, X, max_cols=50, max_degree=2):
         return config
 
 
-def fetch_data(dataset, cache_dir):
-    try:
-        X, y = pmlb.fetch_data(
-            dataset,
-            return_X_y=True,
-            local_cache_dir=cache_dir,
-        )
-    except ValueError:
-        path = os.path.join(cache_dir, dataset)
-        df = pd.read_csv(path)
-        y_col = "target"
-        X_cols = [c for c in df.columns if c != y_col]
-        X = df[X_cols].values
-        y = df[y_col].values
-    return X, y
-
-
 def run_dataset(
     dataset,
     search,
@@ -199,7 +179,7 @@ def run_dataset(
     n_jobs=-1,
     random_state=None,
 ):
-    X, y = fetch_data(dataset, cache_dir=dd.DEFAULT_LOCAL_CACHE_DIR)
+    X, y = fetch_data(dataset)
 
     cv_splitter = StratifiedKFold(
         cv,
