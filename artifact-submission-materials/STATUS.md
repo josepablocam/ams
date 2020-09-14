@@ -1,3 +1,13 @@
+# NOTE:
+
+Please note that the documents in this folder reflect our artifact
+at the time of submission for artifact evaluation. We have updated our
+artifact to reflect camera ready changes: these changes are reflected in all
+other folders (except for `artifact-submission-materials`) as of
+September 14th 2020.
+
+# Start of original document
+
 We submit our artifact to be considered for the *available*,
 *functional*, and *reusable* badges. Below our supporting arguments
 for each.

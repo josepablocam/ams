@@ -1,3 +1,13 @@
+# NOTE:
+
+Please note that the documents in this folder reflect our artifact
+at the time of submission for artifact evaluation. We have updated our
+artifact to reflect camera ready changes: these changes are reflected in all
+other folders (except for `artifact-submission-materials`) as of
+September 14th 2020.
+
+# Start of original document
+
 # Document Overview
 The goal of this README.md is to provide detailed information
 on AMS for purposes of FSE 2020 Artifact Evaluation. In particular,

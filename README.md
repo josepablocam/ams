@@ -20,8 +20,8 @@ The DOI for this artifact is
 $ wget https://ams-fse.s3.us-east-2.amazonaws.com/ams.ova
 ```
 The should result in a `.ova` (format version 1.0) that can be imported into
-virtualbox or vmware. This image was exported and tested with  Virtualbox version 6.0.
-
+virtualbox or vmware. This image was exported and tested with
+Virtualbox version 5.2.
 
 If you do so, you can skip all steps below relating to building and simply
 navigate to the `ams` folder and activate the conda environment
