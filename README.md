@@ -21,6 +21,11 @@ This artifact has since been superseded by a version that incorporates changes
 based on the camera ready. Please use that version of the VM (which you
 can download from zenodo or through aws as explained below.)
 
+The DOI for the camera-ready version of the artifact is
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4031225.svg)](https://doi.org/10.5281/zenodo.4031225).
+
+
+
 
 ```bash
 $ wget https://ams-fse.s3.us-east-2.amazonaws.com/ams.ova
