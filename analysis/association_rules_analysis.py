@@ -7,6 +7,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 import matplotlib
+matplotlib.rcParams['text.usetex'] = True
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
@@ -59,11 +60,11 @@ def label_role(obj):
         return "classifier"
     elif obj.__module__.startswith("sklearn.cluster"):
         return "cluster"
-    elif obj.__module__.startswith(("sklearn.decomposition",
-                                    "sklearn.manifold")):
+    elif obj.__module__.startswith(
+        ("sklearn.decomposition", "sklearn.manifold")):
         return "decomposition"
-    elif obj.__module__.startswith(("sklearn.feature_extraction",
-                                    "sklearn.feature_selection")):
+    elif obj.__module__.startswith(
+        ("sklearn.feature_extraction", "sklearn.feature_selection")):
         return "feature extraction/selection"
     else:
         return "preprocessor"
@@ -92,21 +93,25 @@ def distribution_roles(df_rules):
         tuple(sorted([r1, r2]))
         for r1, r2 in zip(df_roles["role1"], df_roles["role2"])
     ]
-    df_roles = df_roles.groupby("pair")["norm_pmi"].agg(
-        ["count", "mean", "std"])
+    df_roles = df_roles.groupby("pair")["norm_pmi"].agg([
+        "count", "mean", "std"
+    ])
     df_roles = df_roles.reset_index()
     df_roles["pair"] = df_roles["pair"].map(
-        lambda x: x[0] if x[0] == x[1] else x)
+        lambda x: x[0] if x[0] == x[1] else x
+    )
     df_roles["mean"] = df_roles["mean"].map(lambda x: "{:.2f}".format(x))
     df_roles["std"] = df_roles["std"].map(
-        lambda x: "{:.2f}".format(x) if not np.isnan(x) else "-")
+        lambda x: "{:.2f}".format(x) if not np.isnan(x) else "-"
+    )
     df_roles = df_roles.rename(
         columns={
             "pair": "Rule Type",
             "count": "# Rules",
             "mean": "Mean Norm. PMI",
             "std": "SD Norm. PMI"
-        })
+        }
+    )
     return df_roles
 
 
@@ -138,7 +143,8 @@ def main():
             os.makedirs(args.output)
 
         pmi_plot.get_figure().savefig(
-            os.path.join(args.output, "norm_pmi_cdf.pdf"))
+            os.path.join(args.output, "norm_pmi_cdf.pdf")
+        )
 
         # format
         df_roles.to_latex(os.path.join(args.output, "roles.tex"), index=False)

@@ -13,6 +13,7 @@ from core.mine_association_rules import APIRulePredictor
 from core.utils import get_component_constructor
 
 import matplotlib
+# matplotlib.rcParams['text.usetex'] = True
 matplotlib.rcParams['pdf.fonttype'] = 42
 matplotlib.rcParams['ps.fonttype'] = 42
 import matplotlib.pyplot as plt

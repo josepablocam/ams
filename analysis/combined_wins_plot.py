@@ -2,6 +2,7 @@
 from argparse import ArgumentParser
 
 import matplotlib
+matplotlib.rcParams['text.usetex'] = True
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -26,7 +27,12 @@ def plot(combined_df):
     )
     ax.set_xlabel("Search")
     ax.set_ylabel("Number of Wins")
-    plt.legend(loc='upper center', bbox_to_anchor= (0.5, 1.3), title="Approach", ncol=2)
+    plt.legend(
+        loc='upper center',
+        bbox_to_anchor=(0.5, 1.3),
+        title="Approach",
+        ncol=2
+    )
     plt.tight_layout()
     return ax
 

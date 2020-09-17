@@ -7,6 +7,7 @@ import pickle
 
 import matplotlib
 matplotlib.use('Agg')
+matplotlib.rcParams['text.usetex'] = True
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd

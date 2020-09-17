@@ -9,6 +9,12 @@ import glob
 import json
 
 import matplotlib
+# Note that for this one we can't use 'text.usetex'
+# that seems to error out when using multipage pdf...
+# the alternative with pdf/ps.fonttype works
+# matplotlib.rcParams['text.usetex'] = True
+matplotlib.rcParams['pdf.fonttype'] = 42
+matplotlib.rcParams['ps.fonttype'] = 42
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.backends.backend_pdf
